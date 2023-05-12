@@ -9,7 +9,9 @@ import * as path from 'path';
 const app = express();
 
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
+app.use(express.json());
 
+app.use('/api/products', require('./routes/products'));
 app.get('/api', (req, res) => {
   res.send({ message: 'Welcome to api!' });
 });
