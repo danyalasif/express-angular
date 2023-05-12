@@ -2,7 +2,10 @@
   "name": "express-angular",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "api:dev": "nx serve api",
+    "client:dev": "nx serve client"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~16.0.0",
@@ -54,7 +57,7 @@
     "jest-environment-jsdom": "^29.4.1",
     "jest-environment-node": "^29.4.1",
     "jest-preset-angular": "~13.1.0",
-    "nx": "16.1.4",
+    "nx": "^16.1.0",
     "nx-cloud": "latest",
     "prettier": "^2.6.2",
     "ts-jest": "^29.1.0",
