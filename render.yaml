@@ -9,6 +9,6 @@ services:
     branch: main # optional (defaults to master)
     rootDir: .
     numInstances: 1 # optional (defaults to 1)
-    healthCheckPath: /
+    healthCheckPath: /api/health
     buildCommand: npm install; npm run api:build
     startCommand: node apps/api/dist/main.js
