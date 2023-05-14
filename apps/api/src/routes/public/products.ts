@@ -2,7 +2,7 @@ import express from 'express';
 
 const router = express.Router();
 
-const { getProducts, getProduct } = require('../controllers/products');
+import { getProducts, getProduct } from '../../controllers/products';
 
 // GET /api/products
 router.get('/', getProducts);
