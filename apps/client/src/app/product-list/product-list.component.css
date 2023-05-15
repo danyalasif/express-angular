@@ -1,0 +1,37 @@
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.product {
+  width: 300px;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.product-image {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.product-name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.product-description {
+  margin-bottom: 10px;
+}
+
+.product-price {
+  font-weight: bold;
+}
+
+.product-stock {
+  color: #888;
+}
