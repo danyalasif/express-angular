@@ -1,0 +1,42 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar-logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.navbar-link {
+  margin-right: 10px;
+  color: white;
+  cursor: pointer;
+}
+
+.navbar-toggle {
+  display: none;
+}
+
+@media screen and (max-width: 600px) {
+  .navbar-toggle {
+    display: block;
+  }
+
+  .spacer {
+    flex: unset;
+  }
+
+  .navbar-link {
+    display: none;
+  }
+
+  .navbar-link:first-child {
+    display: block;
+  }
+}

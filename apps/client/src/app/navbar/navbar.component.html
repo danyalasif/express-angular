@@ -1,0 +1,28 @@
+<mat-toolbar color="primary" class="navbar">
+  <mat-toolbar-row>
+    <a class="navbar-logo" routerLink="/">Productify</a>
+    <span class="spacer"></span>
+    <button mat-icon-button class="navbar-toggle" (click)="toggleNavMenu()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <a class="navbar-link" routerLink="/">Home</a>
+    <a class="navbar-link">Products</a>
+    <span class="spacer"></span>
+    <a
+      class="navbar-link"
+      *ngIf="!isUserSignedIn"
+      routerLink="/login"
+      routerLinkActive="active"
+      ariaCurrentWhenActive="page"
+      >Sign In</a
+    >
+    <a
+      class="navbar-link"
+      *ngIf="isUserSignedIn"
+      routerLink="/signup"
+      routerLinkActive="active"
+      ariaCurrentWhenActive="page"
+      >Sign Out</a
+    >
+  </mat-toolbar-row>
+</mat-toolbar>
