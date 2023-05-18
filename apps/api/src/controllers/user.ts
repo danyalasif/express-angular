@@ -1,12 +1,12 @@
 import { NextFunction, Request, Response } from 'express';
-import { User } from '../helpers/database/schema/user.schema';
-import passport from 'passport';
-import jwt from 'jsonwebtoken';
+import { IUser, User } from '../helpers/database/schema/user.schema';
+import { signJwt } from '../helpers/methods/authenticateUser';
 
 // GET /api/user/:id
 export const getUser = async (req: Request, res: Response) => {
-  const userId = req.params.id;
-  const user = await User.find({ _id: userId });
+  const userId = req.body.email;
+  console.log({ userId });
+  const user = await User.find({ email: userId });
 
   if (!user) {
     return res.status(404).json({ error: 'User not found' });
@@ -15,14 +15,29 @@ export const getUser = async (req: Request, res: Response) => {
   res.json(user);
 };
 
-export const signup = async (req: Request, res: Response) => {
-  passport.authenticate('signup', { session: false }),
-    async (req, res, next) => {
-      res.json({
-        message: 'Signup successful',
-        user: req.user,
+export const signup = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { email, password } = req.body;
+
+  if (!req.body.email || !req.body.password) {
+    res.json({ success: false, msg: 'Please pass username and password.' });
+  } else {
+    try {
+      const user = await User.create({
+        email: req.body.email,
+        password: req.body.password,
+        role: 'user',
       });
-    };
+
+      const token = signJwt({ userId: user.id, email });
+      res.json({ message: 'success', user: { userId: user.id, email }, token });
+    } catch (e) {
+      res.status(400).json({ message: 'failed', error: e });
+    }
+  }
 };
 
 export const login = async (
@@ -30,24 +45,27 @@ export const login = async (
   res: Response,
   next: NextFunction
 ) => {
-  passport.authenticate('login', async (err, user, info) => {
-    try {
-      if (err || !user) {
-        const error = new Error('An error occurred.');
+  const { email, password } = req.body;
+  console.log({ email, password });
+  if (!(email && password)) {
+    res.status(400).send();
+  }
 
-        return next(error);
-      }
+  let user: IUser;
+  try {
+    user = await User.findOne({ email });
+  } catch (error) {
+    res.status(401).send();
+  }
 
-      req.login(user, { session: false }, async (error) => {
-        if (error) return next(error);
+  if (!user.isValidPassword(password)) {
+    res.status(401).send();
+    return;
+  }
 
-        const body = { _id: user._id, email: user.email };
-        const token = jwt.sign({ user: body }, 'JWT_SECRET');
-
-        return res.json({ token });
-      });
-    } catch (error) {
-      return next(error);
-    }
-  })(req, res, next);
+  const token = signJwt({ userId: user.id, email });
+  res.json({
+    token,
+    user: { userId: user.id, email: user.email, role: user.role },
+  });
 };

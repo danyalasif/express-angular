@@ -2,9 +2,9 @@ import express from 'express';
 
 const router = express.Router();
 
-import { getUser, signup, login } from '../../controllers/user';
+import { getUser } from '../../controllers/user';
 
 // GET /api/user/:id
-router.get('/', getUser);
+router.post('/', getUser);
 
 module.exports = router;

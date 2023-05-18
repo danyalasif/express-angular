@@ -8,7 +8,7 @@
     <a class="navbar-link" routerLink="/">Home</a>
     <a class="navbar-link">Products</a>
     <span class="spacer"></span>
-    <div *ngIf="!isUserSignedIn">
+    <div *ngIf="!isLoggedIn">
       <a
         class="navbar-link"
         routerLink="/login"
@@ -28,8 +28,8 @@
 
     <a
       class="navbar-link"
-      *ngIf="isUserSignedIn"
-      routerLink="/signup"
+      *ngIf="isLoggedIn"
+      (click)="logout()"
       routerLinkActive="active"
       ariaCurrentWhenActive="page"
       >Sign Out</a
