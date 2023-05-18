@@ -4,23 +4,13 @@ import { AuthService } from '../services/auth.service';
 
 export const authGuard = () => {
   const authService = inject(AuthService);
-  const router = inject(Router);
 
-  if (authService.isLoggedIn) {
-    return true;
-  }
-
-  // Redirect to the login page
-  return router.parseUrl('/login');
+  return authService.isLoggedIn;
 };
 
 export const loggedInAuthGuard = () => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  if (authService.isLoggedIn) {
-    return false;
-  }
-
-  return true;
+  return !authService.isLoggedIn;
 };

@@ -6,7 +6,15 @@
       <mat-icon>menu</mat-icon>
     </button>
     <a class="navbar-link" routerLink="/">Home</a>
-    <a class="navbar-link">Products</a>
+    <a
+      class="navbar-link"
+      routerLinkActive="active"
+      ariaCurrentWhenActive="page"
+      routerLink="/addProduct"
+      *ngIf="isLoggedIn"
+    >
+      Add Products</a
+    >
     <span class="spacer"></span>
     <div *ngIf="!isLoggedIn">
       <a

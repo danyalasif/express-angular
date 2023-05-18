@@ -12,6 +12,9 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { AuthService } from '../services/auth.service';
+import { StorageService } from '../services/storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'express-angular-signup',
@@ -30,7 +33,12 @@ import { MatButtonModule } from '@angular/material/button';
 export class SignupComponent {
   signupForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private storageService: StorageService,
+    private router: Router
+  ) {
     this.signupForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -43,7 +51,12 @@ export class SignupComponent {
 
   submitSignupForm() {
     if (this.signupForm.valid) {
-      // Perform signup action
+      const { email, password } = this.signupForm.value;
+      this.authService.register(email, password).subscribe((data) => {
+        this.authService.isLoggedIn = true;
+        this.storageService.saveUser({ token: data.token, user: data.user });
+        this.router.navigate(['home']);
+      });
     }
   }
 

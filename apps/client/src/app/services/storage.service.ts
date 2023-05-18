@@ -34,4 +34,10 @@ export class StorageService {
 
     return false;
   }
+
+  public getToken(): string {
+    const data = this.getUser();
+
+    return data.token;
+  }
 }

@@ -1,5 +1,5 @@
 .container {
-  max-width: 1140px;
   display: flex;
   place-content: center;
+  margin: 32px;
 }

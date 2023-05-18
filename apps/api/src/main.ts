@@ -12,8 +12,8 @@ app.use('/assets', express.static(path.join(__dirname, 'assets')));
 app.use(express.json());
 app.use(cors());
 
-// app.use('/api/products', require('./routes/private/products'));
 app.use('/api/products', require('./routes/public/products'));
+app.use('/api/products', [checkJwt], require('./routes/private/products'));
 
 app.use('/api/user', require('./routes/public/user'));
 app.use('/api/user', [checkJwt], require('./routes/private/user'));

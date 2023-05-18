@@ -36,17 +36,9 @@ export class NavbarComponent {
   }
 
   logout(): void {
-    this.authService.logout().subscribe({
-      next: (res) => {
-        console.log(res);
-        this.storageService.clean();
-
-        window.location.reload();
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
+    this.authService.logout();
+    this.storageService.clean();
+    window.location.reload();
   }
 
   toggleNavMenu() {

@@ -1,0 +1,104 @@
+<mat-card class="add-product-card">
+  <mat-card-header>
+    <mat-card-title>Add Product</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="productForm" (ngSubmit)="submitProductForm()">
+      <mat-form-field appearance="fill" class="add-product-input">
+        <mat-label>Name</mat-label>
+        <input
+          matInput
+          formControlName="name"
+          placeholder="Enter the product name"
+        />
+        <mat-error
+          *ngIf="
+            productForm.get('name')?.invalid && productForm.get('name')?.touched
+          "
+        >
+          Name is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="add-product-input">
+        <mat-label>Description</mat-label>
+        <textarea
+          matInput
+          formControlName="description"
+          placeholder="Enter the product description"
+        ></textarea>
+        <mat-error
+          *ngIf="
+            productForm.get('description')?.invalid &&
+            productForm.get('description')?.touched
+          "
+        >
+          Description is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="add-product-input">
+        <mat-label>Price</mat-label>
+        <input
+          matInput
+          formControlName="price"
+          type="number"
+          placeholder="Enter the product price"
+        />
+        <mat-error
+          *ngIf="
+            productForm.get('price')?.invalid &&
+            productForm.get('price')?.touched
+          "
+        >
+          Price is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="add-product-input">
+        <mat-label>Stock</mat-label>
+        <input
+          matInput
+          formControlName="stock"
+          type="number"
+          placeholder="Enter the product stock"
+        />
+        <mat-error
+          *ngIf="
+            productForm.get('stock')?.invalid &&
+            productForm.get('stock')?.touched
+          "
+        >
+          Stock is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="add-product-input">
+        <mat-label>Image URL</mat-label>
+        <input
+          matInput
+          formControlName="imageUrl"
+          type="text"
+          placeholder="Enter the Image Url"
+        />
+        <mat-error
+          *ngIf="
+            productForm.get('imageUrl')?.invalid &&
+            productForm.get('imageUrl')?.touched
+          "
+        >
+          Image Url is required
+        </mat-error>
+      </mat-form-field>
+
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="productForm.invalid"
+      >
+        Add
+      </button>
+    </form>
+  </mat-card-content>
+</mat-card>

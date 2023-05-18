@@ -21,14 +21,14 @@ export const signup = async (
   next: NextFunction
 ) => {
   const { email, password } = req.body;
-
+  console.log({ email, password });
   if (!req.body.email || !req.body.password) {
-    res.json({ success: false, msg: 'Please pass username and password.' });
+    res.json({ success: false, msg: 'Please pass email and password.' });
   } else {
     try {
       const user = await User.create({
-        email: req.body.email,
-        password: req.body.password,
+        email,
+        password,
         role: 'user',
       });
 
@@ -46,7 +46,6 @@ export const login = async (
   next: NextFunction
 ) => {
   const { email, password } = req.body;
-  console.log({ email, password });
   if (!(email && password)) {
     res.status(400).send();
   }

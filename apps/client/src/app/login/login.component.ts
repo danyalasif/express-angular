@@ -12,8 +12,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../services/auth.service';
 import { StorageService } from '../services/storage.service';
-import { HttpClientModule } from '@angular/common/http';
-import { httpInterceptorProviders } from '../helpers/http.interceptor';
 
 @Component({
   selector: 'app-login',
@@ -25,9 +23,7 @@ import { httpInterceptorProviders } from '../helpers/http.interceptor';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    HttpClientModule,
   ],
-  providers: [httpInterceptorProviders],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
@@ -52,6 +48,7 @@ export class LoginComponent {
       this.authService.login(email, password).subscribe((data) => {
         this.authService.isLoggedIn = true;
         this.storageService.saveUser({ token: data.token, user: data.user });
+        window.location.reload();
       });
     }
   }

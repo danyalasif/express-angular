@@ -16,4 +16,4 @@ const ProductSchema: Schema = new Schema({
   imageUrl: { type: String, required: true },
 });
 
-export const Product = model('Product', ProductSchema);
+export const Product = model<IProduct>('Product', ProductSchema);

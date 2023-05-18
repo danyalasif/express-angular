@@ -1,14 +1,17 @@
+<div *ngIf="isLoading">Loading...</div>
+<div *ngIf="isError">Something bad happened, reload</div>
 <div class="product-list">
-  <div class="product" *ngFor="let product of products">
+  <mat-card *ngFor="let product of products" class="product">
     <img
-      class="product-image"
-      src="https://source.unsplash.com/300x300/?phone"
+      mat-card-image
+      [src]="'https://source.unsplash.com/300x300/?' + product.name"
       alt="{{ product.name }}"
     />
-    <h3 class="product-name">{{ product.name }}</h3>
-    <p class="product-description">{{ product.description }}</p>
-    <p class="product-price">Price: ${{ product.price }}</p>
-    <p class="product-stock">Stock: {{ product.stock }}</p>
-  </div>
+    <mat-card-content>
+      <mat-card-title>{{ product.name }}</mat-card-title>
+      <mat-card-subtitle>{{ product.price | currency }}</mat-card-subtitle>
+      <p>{{ product.description }}</p>
+      <p>Stock: {{ product.stock }}</p>
+    </mat-card-content>
+  </mat-card>
 </div>
-<button type="button" (click)="share()">Share</button>
