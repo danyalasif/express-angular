@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface IProduct {
   name: string;
@@ -10,7 +11,8 @@ export interface IProduct {
   imageUrl: string;
 }
 
-const PRODUCT_API = 'http://localhost:3333/api/products/';
+//@ts-ignore
+const PRODUCT_API = `${environment.API_URL}/api/products/`;
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
